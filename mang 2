@@ -1,0 +1,110 @@
+#include<stdio.h>
+#include<conio.h>
+#define MAXSIZE 1000
+void menu()
+{
+	printf("\n xuat nhap mang");
+	printf("\n tinh tong");
+	printf("\n bai 3: tim gia tri trung binh");
+
+}
+void nhapMang1C_SoNguyen(int a[], int &n);
+void XuatMang1C_SoNguyen(int a[], int &n);
+void Xuat_SoChan(int a[], int n);
+int TongMang(int a[], int b);
+int TongChan(int a[], int n);
+float GTB(int a[], int n);
+void main()
+{
+	int chon;
+	int A[MAXSIZE];
+	int N;
+	menu();
+	do {
+		printf("\n chon bai");
+		scanf("%d", &chon);
+		switch (chon)
+		{
+		case 1:
+			nhapMang1C_SoNguyen(A, N);
+			printf("\n noi dung cua mang la: ");
+			XuatMang1C_SoNguyen(A, N);
+			break;
+		case 2:
+			nhapMang1C_SoNguyen(A, N);
+			printf("\n noi dung cac phan tu chan la:");
+			Xuat_SoChan(A, N);
+			int t = TongMang(A, N);
+			printf("tong cua mang la: %d", TongMang(A, N));
+			int tc = TongChan(A, N);
+			printf("\n tong cua cac gia tri trong mang la: %d", TongChan(A, N));
+			break;
+		case 3:
+			nhapMang1C_SoNguyen(A, N);
+			printf("\n gia tri cac phan tu trong mang la:");
+			GTTB(A, N);
+			printf("\n gia tri trung binh cua cac phan tu trong mang la: %f", GTTB(A, N));
+				break;
+		}
+		}
+		while (chon != 0);
+		getch();
+}
+void NhapMang1C_SoNguyen(int a[], int &n)
+	{
+		do
+		{
+			printf("\n cho biet phan tu cua mang");
+			scanf("%d", &n);
+		} while (n <= 0);
+		for (int i = 0; i <= n; i++)
+		{
+			printf("\n gia tri cua phan tu a[%d]=", i);
+			scanf("%d", &a[i]);
+		}
+	}
+void NhapMang1C_SoNguyen(int a[], int n)
+	{
+		for (int i = 0; i <= n; i++)
+		{
+			printf("%4d", a[i]);
+		}
+	}
+void Xuat_SoChan(int a[], int n)
+{
+	for (int i = 0; i <= n; i++)
+	{
+		if (a[i] % 2 == 0)
+			printf("%4d", a[i]);
+	}
+}
+int TongMang(int a[], int n)
+{
+	int t = 0;
+	for (int i = 0; i <= n; i++){
+		t = t + a[i];
+}
+return t;
+}
+int TongChan(int a[], int n)
+{
+	int tc = 0;
+	for (int i = 0; i <= n; i++){
+		if (a[i] % 2 == 0)
+			tc = tc + a[i];
+	}
+	return tc;
+}
+float GTTB(int a[], int n)
+{
+	int tong = 0;
+	for (int i = 0; i <= n; i++)
+		tong = tong + a[i];
+	float tb = (float)tong / n;
+	return tb;
+}
+
+
+
+
+
