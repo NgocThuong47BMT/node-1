@@ -1,0 +1,173 @@
+#include<conio.h>
+#include<stdio.h>
+#include<math.h>
+#include<time.h>
+#include<stdlib.h>
+
+const int MAXSIZE = 1000;
+//================
+
+void TaoMang1C_SoNguyen(int a[], int &n);
+void XuatMang1C_SoNguyen(int a[], int n);
+void ThemPhanTu(int a[], int &n, int x, int vt);
+int TimPhanTu(int a[], int n, int x);
+void XoaPhanTu(int a[], int &n, int x);
+void SapXepTang(int a[], int n);
+int KiemTraSoChinhPhuong(int X);
+void LietKeSoChinhPhuong(int a[], int n);
+
+
+
+void menu()
+{
+	printf(" 1:Khoi tao mang \n");
+	printf(" 2:Xuat noi dung cua mang \n");
+	printf(" 3:Them mot phan tu vao mang \n");
+	printf(" 4:Xoa mot phan tu trong mang \n");
+	printf(" 5:Sap xep mang tang dan \n");
+	printf(" 6:Liet ke so chinh phuong \n");
+	printf(" 0:Thoat chuong trinh");
+
+}
+
+int Process()
+{
+	int A[MAXSIZE], N;
+	int PhimChon, key, x, vt;
+	do
+	{
+		menu();
+		printf("\nChon bai ");
+		scanf_s("%d", &PhimChon);
+		switch (PhimChon)
+		{
+		case 1:
+			TaoMang1C_SoNguyen(A, N);
+			printf("\n Noi dung cua mang vua tao la");
+			XuatMang1C_SoNguyen(A, N);
+			break;
+		case 2:
+			printf("\n Noi dung cua mang la");
+			XuatMang1C_SoNguyen(A, N);
+			break;
+		case 3:
+			printf("\nBan hay cho biet phan tu muon them: ");
+			scanf_s("%d", &x);
+			printf("\nBan hay cho biet vi tri muon them: ");
+			scanf_s("%d", &vt);
+			ThemPhanTu(A, N, x, vt);
+			printf("\nMang sau khi them %d vao vi tri %d la: ", x, vt);
+			XuatMang1C_SoNguyen(A, N);
+			break;
+		case 4:
+			printf("\n Ban hay cho biet phan tu muon xoa: ");
+			scanf_s("%d", &x);
+			XoaPhanTu(A, N, x);
+			printf("\nMang sau khi xoa %d tai vi tri %d la: ");
+			XuatMang1C_SoNguyen(A, N);
+			break;
+		case 5:
+			SapXepTang(A, N);
+			printf("\nMang sau khi duoc sap xep tang dan la: ");
+			XuatMang1C_SoNguyen(A, N);
+			break;
+		case 6:
+			LietKeSoChinhPhuong(A, N);
+			break;
+		case 0:
+			exit(1);
+		}
+	} while (1);
+}
+//===========================
+//Phan ham main void
+main()
+{
+	Process();
+}
+//==================
+void TaoMang1C_SoNguyen(int a[], int &n)
+{
+	do
+	{
+		printf("Cho biet so phan tu cua mang: ");
+		scanf_s("%d", &n);
+	} while (n <= 0);
+	srand((unsigned)time(NULL));
+	for (int i = 0; i < n; i++)
+		a[i] = (rand() % 199) - 99; // gia tri tu -99 den 99
+}
+//==========================
+void XuatMang1C_SoNguyen(int a[], int n)
+{
+	for (int i = 0; i < n; i++)
+		printf("%4d", a[i]);
+}
+//============================
+void ThemPhanTu(int a[], int &n, int x, int vt)
+{
+	if (vt >= 0 && vt <= n)
+	{
+		for (int i = n; i>vt; i--)
+			a[i] = a[i - 1];
+		a[vt] = x;
+		n++;
+	}
+	else
+		printf("\nVi tri %d khong hop le.", vt);
+}
+//===========================
+int TimPhanTu(int a[], int n, int x)
+{
+	for (int i = 0; i < n; i++)
+	if (a[i] == x)
+		return i;
+	return -1;
+}
+//======================
+void XoaPhanTu(int a[], int &n, int x)
+{
+	int vt = TimPhanTu(a, n, x);
+	if (vt == -1)
+		printf("\nKhong tim thay phan tu muon xoa.");
+	else
+	{
+		for (int i = vt; i < -n - 2; i++)
+			a[i] = a[i + 1];
+		n--;
+	}
+}
+//========================
+void SapXepTang(int a[], int n)
+{
+	for (int i = 0; i < n - 1;i++)
+	for (int j = i + 1; j < n;j++)
+	if (a[i]>a[j])
+	{
+		int tam = a[i];
+		a[i] = a[j];
+		a[j] = tam;
+	}
+}
+//====================
+int KiemTraSoChinhPhuong(int x)
+{
+	if (x > 3)
+	{
+		int cx = sqrt((double)x);
+		if(cx*cx == x)
+			return 1;
+	}
+	return 0;
+}
+//==============================
+void LietKeSoChinhPhuong(int a[], int n)
+{
+	printf("\nDanh sach cac so chinh phuong: ");
+	for (int i = 0; i < n; i++)
+	{
+		int kq = KiemTraSoChinhPhuong(a[i]);
+		if (kq == 1)
+			printf("%4d", a[i]);
+	}
+}
